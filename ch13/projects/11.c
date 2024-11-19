@@ -1,5 +1,6 @@
 // Calculate the average word length for a sentence
 
+#include <ctype.h>
 #include <stdio.h>
 
 double compute_average_word_length(const char *sentence);
@@ -12,36 +13,38 @@ int main(void) {
     printf("Enter a sentence: ");
     fgets(sentence, sizeof(sentence), stdin);
   
-    // skips leading whitespaces
-    while ((ch = getchar()) == ' ') ;
-
-    while(ch != '\n') {
-        if (ch == ' ') {
-            words++;      
-        } else if (ch != ' ') {
-            letters_per_word++;      
-        }
-        ch = getchar();
-    }
-    words++;
-
-    float avg = letters_per_word / words;
-
     printf("Average word length: %.1f\n", compute_average_word_length(sentence));
 
     return 0;
 }
 
 double compute_average_word_length(const char *sentence) {
-    float average = 0;
+    float letters = 0, word = 0, average = 0;
 
-    // skip whitespaces
-    while (*sentence == ' ')
-        sentence++;
+    while (*sentence != '\n' && *sentence != '\0') {
 
-    while (*sentence) {
-        break;
+        // skip whitespaces
+        if (*sentence == ' ') {
+            sentence++;
+            continue;
+        }
+
+        // if encountered a letter, it is most likely the letter of the first word
+        // increment word count
+        if (isalpha(*sentence)) word++;
+
+        // then loop through the word until we reach a non alphabet character
+        // like a whitespace, punctuation mark, etc.
+        
+        // increment the letter count and increment the pointer
+        // to move to the next value
+        while (isalpha(*sentence)) {
+            letters++;
+            sentence++;
+        }
     }
+
+    average = letters / word;
     
     return average;
 }
