@@ -10,7 +10,7 @@ Repo dedicated to my study on C programming. More specifically studying the book
 
 ### C Compiler
 
-#### Linux
+#### Ubuntu
 
 ``` shell
 sudo apt update
